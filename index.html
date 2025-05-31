@@ -1,0 +1,1625 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estructura Iberia</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <style>
+        /* Unifica los estilos generales y elimina duplicados */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            background-color: #dc2626;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            width: 100%;
+            max-width: 100vw;
+        }
+
+        .logo img {
+            height: 40px;
+            max-width: 150px;
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .header-nav span {
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 8px 15px;
+            border-right: 1px solid rgba(255, 255, 255, 0.689);
+            transition: background-color 0.3s;
+            white-space: nowrap;
+        }
+
+        .header-nav span:last-child {
+            border-right: none;
+        }
+
+        .header-nav span:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .header-nav span i {
+            margin-right: 5px;
+        }
+
+        .header-nav img {
+            height: 25px;
+        }
+
+        /* Menú hamburguesa - oculto por defecto */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        /* Iconos de usuario móvil - ocultos por defecto */
+        .mobile-user-icons {
+            display: none;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .mobile-user-icons i {
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .mobile-user-icons i:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Menú desplegable móvil */
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: #dc2626;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 1000;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu span {
+            display: block;
+            color: white;
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        .mobile-menu span:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-menu span i {
+            margin-right: 10px;
+            width: 20px;
+        }
+
+        .mobile-menu .oneworld-logo {
+            text-align: center;
+            padding: 20px;
+            border-bottom: none;
+        }
+
+        .mobile-menu .oneworld-logo img {
+            height: 25px;
+        }
+
+        /* Main Navigation */
+        .main-nav {
+            background-color: #ffffff;
+            padding: 15px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+        }
+
+        .nav-item {
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: 500;
+            color: #666;
+        }
+
+        .nav-item.active {
+            border-bottom: 2px solid #d32f2f;
+            color: #333;
+        }
+
+        /* Hero Section - Carousel */
+        .hero {
+            position: relative;
+            height: 80vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+
+        .carousel-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 500%;
+            height: 100%;
+            display: flex;
+            transition: transform 0.8s ease-in-out;
+        }
+
+        .carousel-slide {
+            width: 20%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .slide-1 { background:url('img/ib_herobanner_on-business_txt_dic24_1280.jpg'); }
+        .slide-2 { background:url('img/herobanner_stopover_marzo24_1280.jpg'); }
+        .slide-3 { background:url('img/herobanner_tr_generia_2025_1280.jpg'); }
+        .slide-4 { background:url('img/herobanner_destinos_verano_2025_1280.jpg'); }
+        .slide-5 { background:url('img/herobanner_generico_doh_1280.jpg'); }
+
+        /* Slide transitions */
+        .carousel-container {
+            transition: transform 0.8s ease-in-out;
+        }
+
+        /* Search Form */
+        .search-form {
+            background: white;
+            padding: 8px 25px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            width: 90%;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Tab Navigation */
+        .tab-nav {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+        }
+
+        .tab {
+            padding: 10px 0;
+            cursor: pointer;
+            font-weight: 600;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tab.active {
+            color: #d32f2f;
+            border-bottom-color: #d32f2f;
+        }
+
+        /* Form Fields */
+        .form-row {
+            display: grid;
+            grid-template-columns: 1.2fr 1.2fr 1fr 1fr 1fr 90px;
+            gap: 8px;
+            align-items: end;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-size: 11px;
+            color: #888;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input, .form-group select {
+            padding: 14px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            background: white;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #d32f2f;
+        }
+
+        .search-btn {
+            background-color: #d32f2f;
+            color: white;
+            border: none;
+            padding: 14px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            transition: background-color 0.3s ease;
+            height: 50px;
+            width: 100%;
+        }
+
+        .search-btn:hover {
+            background-color: #b71c1c;
+        }
+
+        /* Form Options */
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .form-options-left {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+        }
+
+        .checkbox-group label {
+            font-size: 13px;
+            color: #666;
+            cursor: pointer;
+        }
+
+        .dropdown-select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background: white;
+            font-size: 13px;
+            color: #666;
+        }
+
+        /* Hero Content */
+        .hero-content {
+            text-align: center;
+            color: white;
+            max-width: 700px;
+            margin-top: 10px;
+            position: relative;
+            z-index: 10;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 200px;
+        }
+
+        .hero-title {
+            font-size: 3.2rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+            margin-bottom: 35px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            background-color: #d32f2f;
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #b71c1c;
+        }
+
+        /* Navigation Arrows */
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(211, 47, 47, 0.8);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+            z-index: 15;
+        }
+
+        .nav-arrow:hover {
+            background-color: #d32f2f;
+        }
+
+        .nav-arrow.left {
+            left: 30px;
+        }
+
+        .nav-arrow.right {
+            right: 30px;
+        }
+
+        /* Carousel Indicators */
+        .carousel-indicators {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 15;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .indicator.active {
+            background-color: white;
+        }
+
+        /* Help Buttons */
+        .help-buttons {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .help-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .help-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .help-btn.info {
+            background-color: white;
+            color: #d32f2f;
+            border: 2px solid #d32f2f;
+        }
+
+        .help-btn.question {
+            background-color: #d32f2f;
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 8px 15px;
+                overflow-x: hidden;
+            }
+
+            .header-nav {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .mobile-user-icons {
+                display: flex;
+            }
+
+            .logo img {
+                height: 35px;
+                max-width: 120px;
+            }
+
+            /* Transform nav-container into carousel on mobile */
+            .nav-container {
+                position: relative;
+                height: 200px;
+                overflow: hidden;
+                padding: 0;
+                background-image: url('img/ib_herobanner_on-business_txt_dic24_1280.jpg');
+                background-size: cover;
+                background-position: center;
+                transition: background-image 0.8s ease-in-out;
+            }
+
+            /* Hide original nav items on mobile */
+            .nav-item {
+                display: none;
+            }
+
+            /* Show mobile carousel content */
+            .mobile-nav-carousel {
+                display: block !important;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+
+            .mobile-nav-content {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                text-align: center;
+                color: white;
+                width: 90%;
+                z-index: 10;
+            }
+
+            .mobile-nav-title {
+                font-size: 1.8rem;
+                font-weight: 300;
+                margin-bottom: 10px;
+                line-height: 1.2;
+            }
+
+            .mobile-nav-subtitle {
+                font-size: 0.9rem;
+                font-weight: 300;
+                margin-bottom: 15px;
+                opacity: 0.9;
+            }
+
+            .mobile-nav-button {
+                background-color: #d32f2f;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                font-size: 14px;
+                font-weight: bold;
+                border-radius: 6px;
+                cursor: pointer;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                transition: background-color 0.3s ease;
+            }
+
+            .mobile-nav-button:hover {
+                background-color: #b71c1c;
+            }
+
+            .mobile-nav-indicators {
+                position: absolute;
+                bottom: 10px;
+                left: 50%;
+                transform: translateX(-50%);
+                display: flex;
+                gap: 8px;
+                z-index: 15;
+            }
+
+            .mobile-nav-indicator {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background-color: rgba(255, 255, 255, 0.5);
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            .mobile-nav-indicator.active {
+                background-color: white;
+            }
+
+            /* Hide desktop hero carousel elements on mobile */
+            .hero {
+                height: auto;
+                padding: 20px 0;
+            }
+
+            .carousel-container {
+                display: none;
+            }
+
+            .hero-content {
+                display: none;
+            }
+
+            .nav-arrow {
+                display: none;
+            }
+
+            .carousel-indicators {
+                display: none;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .search-btn {
+                width: 100%;
+                margin-top: 10px;
+            }
+            
+            .hero-title {
+                font-size: 2.2rem;
+                padding: 0 15px;
+            }
+            
+            .hero-subtitle {
+                padding: 0 15px;
+            }
+            
+            .tab-nav {
+                gap: 15px;
+                flex-wrap: wrap;
+            }
+
+            .search-form {
+                width: 95%;
+                margin: 20px auto 40px auto;
+                padding: 20px 15px;
+            }
+
+            .form-options {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+
+            .nav-arrow {
+                display: none;
+            }
+
+            .help-buttons {
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+
+    <header class="header">
+        <button class="menu-toggle" onclick="toggleMobileMenu()">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        
+        <div class="logo">
+            <img src="img/IBERIA.COM_ los mejores precios para vuelos de Iberia.svg"  alt="Iberia Logo">
+        </div>
+        
+        <nav class="header-nav">
+            <span><i class="fa-solid fa-earth-americas"></i> Colombia - ES</span>
+            <span><i class="fa-solid fa-users"></i> Empresas</span>
+            <span><i class="fa-solid fa-circle-question"></i> Ayuda</span>
+            <span><i class="fa-solid fa-magnifying-glass"></i> ¿Tienes dudas?</span>
+            <span><i class="fa-solid fa-right-to-bracket"></i> Registro</span>
+            <span><i class="fa-solid fa-user"></i> Acceso</span>
+            <span><img src="img/Logotipo de oneworld.svg" alt="OneWorld"></span>
+        </nav>
+
+        <div class="mobile-user-icons">
+            <i class="fa-solid fa-right-to-bracket" title="Registro"></i>
+            <i class="fa-solid fa-user" title="Acceso"></i>
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <span><i class="fa-solid fa-earth-americas"></i> Colombia - ES</span>
+            <span><i class="fa-solid fa-users"></i> Empresas</span>
+            <span><i class="fa-solid fa-circle-question"></i> Ayuda</span>
+            <span><i class="fa-solid fa-magnifying-glass"></i> ¿Tienes dudas?</span>
+            <div class="oneworld-logo">
+                <img src="img/Logotipo de oneworld.svg" alt="OneWorld">
+            </div>
+        </div>
+    </header>
+
+    <script>
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+        }
+
+        // Cerrar menú al hacer clic fuera
+        document.addEventListener('click', function(event) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuToggle = document.querySelector('.menu-toggle');
+            
+            if (!mobileMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+                mobileMenu.classList.remove('active');
+            }
+        });
+
+        // Cerrar menú al redimensionar ventana
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                document.getElementById('mobileMenu').classList.remove('active');
+            }
+        });
+    </script>
+
+
+    <!-- Main Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-item active">Reservar</div>
+            <div class="nav-item">Gestionar reserva</div>
+            <div class="nav-item">Preparar el viaje</div>
+            <div class="nav-item">Experiencia Iberia</div>
+            <div class="nav-item">Club Iberia Plus</div>
+            
+            <!-- Mobile carousel content (hidden on desktop) -->
+            <div class="mobile-nav-carousel" style="display: none;">
+                <div class="mobile-nav-content">
+                    <h1 class="mobile-nav-title" id="mobileNavTitle">Y a ti, ¿qué te piden las vacaciones?</h1>
+                    <p class="mobile-nav-subtitle" id="mobileNavSubtitle">Descubre los mejores destinos</p>
+                    <button class="mobile-nav-button" id="mobileNavButton">Compra ya</button>
+                </div>
+                <div class="mobile-nav-indicators">
+                    <div class="mobile-nav-indicator active" onclick="goToMobileNavSlide(0)"></div>
+                    <div class="mobile-nav-indicator" onclick="goToMobileNavSlide(1)"></div>
+                    <div class="mobile-nav-indicator" onclick="goToMobileNavSlide(2)"></div>
+                    <div class="mobile-nav-indicator" onclick="goToMobileNavSlide(3)"></div>
+                    <div class="mobile-nav-indicator" onclick="goToMobileNavSlide(4)"></div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <!-- Carousel Background -->
+        <div class="carousel-container">
+            <div class="carousel-slide slide-1"></div>
+            <div class="carousel-slide slide-2"></div>
+            <div class="carousel-slide slide-3"></div>
+            <div class="carousel-slide slide-4"></div>
+            <div class="carousel-slide slide-5"></div>
+        </div>
+
+        <!-- Navigation Arrows -->
+        <button class="nav-arrow left" onclick="previousSlide()">‹</button>
+        <button class="nav-arrow right" onclick="nextSlide()">›</button>
+
+        <!-- Search Form -->
+        <div class="search-form">
+            <!-- Tab Navigation -->
+            <div class="tab-nav">
+                <div class="tab active">VUELO</div>
+                <div class="tab">HOTEL</div>
+                <div class="tab">COCHE</div>
+                <div class="tab">STOPOVER</div>
+            </div>
+
+           <!-- Form -->
+<div class="form-row">
+    <div class="form-group">
+        <input type="text" id="origen" value="Bogotá (BOG)" placeholder="Origen" autocomplete="off">
+        <div id="origen-suggestions" class="suggestions-dropdown" style="display: none;"></div>
+    </div>
+    <div class="form-group">
+        <input type="text" id="destino" placeholder="Destino" autocomplete="off">
+        <div id="destino-suggestions" class="suggestions-dropdown" style="display: none;"></div>
+    </div>
+    <div class="form-group">
+        <input type="text" id="fecha-ida" placeholder="FECHA IDA DD/MM/YYYY" readonly onclick="mostrarCalendario('ida')">
+    </div>
+    <div class="form-group" id="fecha-vuelta-group">
+        <input type="text" id="fecha-vuelta" placeholder="Fecha vuelta DD/MM/YYYY" readonly onclick="mostrarCalendario('vuelta')">
+    </div>
+    <div class="form-group">
+        <select id="pasajeros">
+            <option value="1">1 Adulto</option>
+            <option value="2">2 Adultos</option>
+            <option value="3">3 Adultos</option>
+        </select>
+    </div>
+    <button class="search-btn">Buscar</button>
+</div>
+<div class="form-options">
+    <div class="form-options-left">
+        <div class="checkbox-group">
+            <input type="checkbox" id="roundtrip" checked onchange="toggleFechaVuelta()">
+            <label for="roundtrip">Ida y vuelta</label>
+        </div>
+        <div class="checkbox-group">
+            <input type="checkbox" id="avios">
+            <label for="avios">Pagar con Avios</label>
+        </div>
+    </div>
+    <select class="dropdown-select" id="clase">
+        <option value="economica-mas">Más Económica</option>
+        <option value="economica">Económica</option>
+        <option value="business">Business</option>
+    </select>
+</div>
+
+
+<style>
+.suggestions-dropdown {
+    position: absolute;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+
+.suggestion-item:hover {
+    background-color: #f5f5f5;
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.calendar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+}
+
+.calendar-container {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    width: 800px;
+    max-width: 90vw;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px 0;
+}
+
+.calendar-nav {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 4px;
+    color: #666;
+}
+
+.calendar-nav:hover {
+    background: #f0f0f0;
+}
+
+.calendar-months {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+}
+
+.calendar-month {
+    flex: 1;
+    max-width: 300px;
+}
+
+.month-title {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #333;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+}
+
+.calendar-day-header {
+    text-align: center;
+    font-weight: bold;
+    padding: 8px 4px;
+    font-size: 12px;
+    color: #666;
+}
+
+.calendar-day {
+    text-align: center;
+    padding: 8px 4px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+    min-height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.calendar-day:hover {
+    background: #e3f2fd;
+}
+
+.calendar-day.other-month {
+    color: #ccc;
+}
+
+.calendar-day.selected {
+    background: #1976d2;
+    color: white;
+}
+
+.calendar-day.range {
+    background: #e3f2fd;
+}
+
+.calendar-day.disabled {
+    color: #ccc;
+    cursor: not-allowed;
+}
+
+.calendar-footer {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.date-info {
+    font-size: 14px;
+    color: #666;
+}
+
+.calendar-close {
+    background: #1976d2;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.flexible-dates {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+}
+
+.flexible-checkbox {
+    margin-right: 5px;
+}
+</style>
+
+<script>
+// Ciudades de Colombia con aeropuertos
+const ciudadesColombia = [
+    'Bogotá (BOG)', 'Medellín (MDE)', 'Cali (CLO)', 'Cartagena (CTG)', 
+    'Barranquilla (BAQ)', 'Santa Marta (SMR)', 'Bucaramanga (BGA)', 
+    'Pereira (PEI)', 'Manizales (MZL)', 'Armenia (AXM)', 'Ibagué (IBE)',
+    'Neiva (NVA)', 'Villavicencio (VVC)', 'Pasto (PSO)', 'Cúcuta (CUC)',
+    'Montería (MTR)', 'Valledupar (VUP)', 'Quibdó (UIB)', 'Leticia (LET)',
+    'San Andrés (ADZ)', 'Providencia (PVA)'
+];
+
+// 
+
+// Función para mostrar sugerencias
+function mostrarSugerencias(input, lista, containerId) {
+    const container = document.getElementById(containerId);
+    const valor = input.value.toLowerCase();
+    
+    if (valor.length < 2) {
+        container.style.display = 'none';
+        return;
+    }
+    
+    const filtradas = lista.filter(ciudad => 
+        ciudad.toLowerCase().includes(valor)
+    );
+    
+    if (filtradas.length === 0) {
+        container.style.display = 'none';
+        return;
+    }
+    
+    container.innerHTML = filtradas.map(ciudad => 
+        `<div class="suggestion-item" onclick="seleccionarSugerencia('${input.id}', '${ciudad}', '${containerId}')">${ciudad}</div>`
+    ).join('');
+    
+    container.style.display = 'block';
+}
+
+// Función para seleccionar sugerencia
+function seleccionarSugerencia(inputId, valor, containerId) {
+    document.getElementById(inputId).value = valor;
+    document.getElementById(containerId).style.display = 'none';
+}
+
+// Event listeners para los inputs
+document.getElementById('origen').addEventListener('input', function() {
+    mostrarSugerencias(this, ciudadesColombia, 'origen-suggestions');
+});
+
+document.getElementById('destino').addEventListener('input', function() {
+    mostrarSugerencias(this, destinosInternacionales, 'destino-suggestions');
+});
+
+// Ocultar sugerencias al hacer clic fuera
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('.form-group')) {
+        document.getElementById('origen-suggestions').style.display = 'none';
+        document.getElementById('destino-suggestions').style.display = 'none';
+    }
+});
+
+// Función para alternar fecha de vuelta
+function toggleFechaVuelta() {
+    const roundtrip = document.getElementById('roundtrip');
+    const fechaVueltaGroup = document.getElementById('fecha-vuelta-group');
+    const fechaVuelta = document.getElementById('fecha-vuelta');
+    
+    if (roundtrip.checked) {
+        fechaVueltaGroup.style.display = 'block';
+        fechaVuelta.required = true;
+    } else {
+        fechaVueltaGroup.style.display = 'none';
+        fechaVuelta.required = false;
+        fechaVuelta.value = '';
+    }
+}
+
+// Función para buscar vuelos
+function buscarVuelos() {
+    const origen = document.getElementById('origen').value;
+    const destino = document.getElementById('destino').value;
+    const fechaIda = document.getElementById('fecha-ida').value;
+    const fechaVuelta = document.getElementById('fecha-vuelta').value;
+    const pasajeros = document.getElementById('pasajeros').value;
+    const roundtrip = document.getElementById('roundtrip').checked;
+    const avios = document.getElementById('avios').checked;
+    const clase = document.getElementById('clase').value;
+    
+    // Validar campos obligatorios
+    if (!origen || !destino || !fechaIda) {
+        alert('Por favor complete todos los campos obligatorios');
+        return;
+    }
+    
+    if (roundtrip && !fechaVuelta) {
+        alert('Por favor seleccione la fecha de vuelta');
+        return;
+    }
+    
+    // Guardar datos en variables globales para usar en otras páginas
+    localStorage.setItem('datosViaje', JSON.stringify({
+        origen: origen,
+        destino: destino,
+        fechaIda: fechaIda,
+        fechaVuelta: fechaVuelta,
+        pasajeros: pasajeros,
+        roundtrip: roundtrip,
+        avios: avios,
+        clase: clase
+    }));
+    
+    
+    // Determinar página de destino basada en tipo de viaje y clase
+    let urlDestino = '';
+    
+    if (roundtrip) {
+        switch(clase) {
+            case 'economica-mas':
+                urlDestino = 'vuelos-ida-vuelta-economica-mas.html';
+                break;
+            case 'economica':
+                urlDestino = 'vuelos-ida-vuelta-economica.html';
+                break;
+            case 'business':
+                urlDestino = 'vuelos-ida-vuelta-business.html';
+                break;
+        }
+    } else {
+        switch(clase) {
+            case 'economica-mas':
+                urlDestino = 'vuelos-ida-economica-mas.html';
+                break;
+            case 'economica':
+                urlDestino = 'vuelos-ida-economica.html';
+                break;
+            case 'business':
+                urlDestino = 'vuelos-ida-business.html';
+                break;
+        }
+    }
+    
+    // Redirigir a la página correspondiente
+    window.location.href = urlDestino;
+}
+
+// Inicializar el estado de fecha de vuelta
+toggleFechaVuelta();
+
+// Agregar event listener al botón existente
+document.querySelector('.search-btn').addEventListener('click', buscarVuelos);
+
+// Variables globales para el calendario
+let currentDate = new Date();
+let selectedDateType = '';
+let selectedIda = null;
+let selectedVuelta = null;
+
+// Crear el calendario personalizado
+function crearCalendario() {
+    const overlay = document.createElement('div');
+    overlay.className = 'calendar-overlay';
+    overlay.innerHTML = `
+        <div class="calendar-container">
+            <div class="calendar-header">
+                <button class="calendar-nav" onclick="cambiarMes(-1)">❮</button>
+                <div class="date-info">Hoy: 28/05/2025</div>
+                <button class="calendar-nav" onclick="cambiarMes(1)">❯</button>
+            </div>
+            <div class="calendar-months">
+                <div class="calendar-month">
+                    <div class="month-title" id="month1-title"></div>
+                    <div class="calendar-grid" id="month1-grid"></div>
+                </div>
+                <div class="calendar-month">
+                    <div class="month-title" id="month2-title"></div>
+                    <div class="calendar-grid" id="month2-grid"></div>
+                </div>
+            </div>
+            <div class="calendar-footer">
+                <div class="flexible-dates">
+                    <input type="checkbox" class="flexible-checkbox" id="flexible">
+                    <label for="flexible">Mis fechas son flexibles</label>
+                </div>
+                <button class="calendar-close" onclick="cerrarCalendario()">Cerrar</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(overlay);
+    return overlay;
+}
+
+// Mostrar calendario
+function mostrarCalendario(tipo) {
+    selectedDateType = tipo;
+    let overlay = document.querySelector('.calendar-overlay');
+    if (!overlay) {
+        overlay = crearCalendario();
+    }
+    
+    // Si es ida y vuelta y se hace clic en cualquier input, resetear selección para flujo secuencial
+    const roundtrip = document.getElementById('roundtrip').checked;
+    if (roundtrip) {
+        // No resetear las fechas ya seleccionadas, solo abrir el calendario
+    }
+    
+    overlay.style.display = 'flex';
+    actualizarCalendario();
+}
+
+// Cerrar calendario
+function cerrarCalendario() {
+    const overlay = document.querySelector('.calendar-overlay');
+    if (overlay) {
+        overlay.style.display = 'none';
+    }
+}
+
+// Cambiar mes
+function cambiarMes(direccion) {
+    currentDate.setMonth(currentDate.getMonth() + direccion);
+    actualizarCalendario();
+}
+
+// Actualizar calendario
+function actualizarCalendario() {
+    const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 
+                   'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+    
+    const mes1 = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+    const mes2 = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
+    
+    document.getElementById('month1-title').textContent = `${meses[mes1.getMonth()]} ${mes1.getFullYear()}`;
+    document.getElementById('month2-title').textContent = `${meses[mes2.getMonth()]} ${mes2.getFullYear()}`;
+    
+    generarDiasCalendario('month1-grid', mes1);
+    generarDiasCalendario('month2-grid', mes2);
+}
+
+// Generar días del calendario
+function generarDiasCalendario(gridId, fecha) {
+    const grid = document.getElementById(gridId);
+    const diasSemana = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
+    
+    // Limpiar grid
+    grid.innerHTML = '';
+    
+    // Agregar headers de días
+    diasSemana.forEach(dia => {
+        const header = document.createElement('div');
+        header.className = 'calendar-day-header';
+        header.textContent = dia;
+        grid.appendChild(header);
+    });
+    
+    // Obtener primer día del mes y ajustar para que lunes sea 0
+    const primerDia = new Date(fecha.getFullYear(), fecha.getMonth(), 1);
+    let diaSemana = primerDia.getDay();
+    diaSemana = diaSemana === 0 ? 6 : diaSemana - 1; // Ajustar para que lunes sea 0
+    
+    // Días del mes anterior
+    const mesAnterior = new Date(fecha.getFullYear(), fecha.getMonth(), 0);
+    for (let i = diaSemana - 1; i >= 0; i--) {
+        const dia = document.createElement('div');
+        dia.className = 'calendar-day other-month';
+        dia.textContent = mesAnterior.getDate() - i;
+        grid.appendChild(dia);
+    }
+    
+    // Días del mes actual
+    const diasEnMes = new Date(fecha.getFullYear(), fecha.getMonth() + 1, 0).getDate();
+    const hoy = new Date();
+    
+    for (let dia = 1; dia <= diasEnMes; dia++) {
+        const diaElement = document.createElement('div');
+        diaElement.className = 'calendar-day';
+        diaElement.textContent = dia;
+        
+        const fechaDia = new Date(fecha.getFullYear(), fecha.getMonth(), dia);
+        
+        // Deshabilitar fechas pasadas
+        if (fechaDia < hoy) {
+            diaElement.classList.add('disabled');
+        } else {
+            diaElement.onclick = () => seleccionarFecha(fechaDia);
+        }
+        
+        // Marcar fechas seleccionadas
+        if (selectedIda && fechaIgual(fechaDia, selectedIda)) {
+            diaElement.classList.add('selected');
+        }
+        if (selectedVuelta && fechaIgual(fechaDia, selectedVuelta)) {
+            diaElement.classList.add('selected');
+        }
+        
+        grid.appendChild(diaElement);
+    }
+    
+    // Completar la última semana con días del siguiente mes
+    const diasRestantes = 42 - grid.children.length; // 6 semanas × 7 días
+    for (let dia = 1; dia <= diasRestantes; dia++) {
+        const diaElement = document.createElement('div');
+        diaElement.className = 'calendar-day other-month';
+        diaElement.textContent = dia;
+        grid.appendChild(diaElement);
+    }
+}
+
+// Seleccionar fecha
+function seleccionarFecha(fecha) {
+    const roundtrip = document.getElementById('roundtrip').checked;
+    
+    if (!roundtrip) {
+        // Solo ida: seleccionar fecha y cerrar
+        selectedIda = fecha;
+        document.getElementById('fecha-ida').value = formatearFecha(fecha);
+        cerrarCalendario();
+        return;
+    }
+    
+    // Ida y vuelta: lógica secuencial
+    if (!selectedIda || (selectedIda && selectedVuelta)) {
+        // Primera selección o reiniciar selección
+        selectedIda = fecha;
+        selectedVuelta = null;
+        document.getElementById('fecha-ida').value = formatearFecha(fecha);
+        document.getElementById('fecha-vuelta').value = '';
+    } else if (selectedIda && !selectedVuelta) {
+        // Segunda selección
+        if (fecha < selectedIda) {
+            // Si selecciona fecha anterior a ida, cambiar ida
+            selectedIda = fecha;
+            selectedVuelta = null;
+            document.getElementById('fecha-ida').value = formatearFecha(fecha);
+            document.getElementById('fecha-vuelta').value = '';
+        } else {
+            // Seleccionar vuelta y cerrar
+            selectedVuelta = fecha;
+            document.getElementById('fecha-vuelta').value = formatearFecha(fecha);
+            cerrarCalendario();
+            return;
+        }
+    }
+    
+    actualizarCalendario();
+}
+
+// Formatear fecha
+function formatearFecha(fecha) {
+    const dia = fecha.getDate().toString().padStart(2, '0');
+    const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
+    const año = fecha.getFullYear();
+    return `${dia}/${mes}/${año}`;
+}
+
+// Verificar si dos fechas son iguales
+function fechaIgual(fecha1, fecha2) {
+    return fecha1.getDate() === fecha2.getDate() &&
+           fecha1.getMonth() === fecha2.getMonth() &&
+           fecha1.getFullYear() === fecha2.getFullYear();
+}
+
+// Cerrar calendario al hacer clic fuera
+document.addEventListener('click', function(e) {
+    const overlay = document.querySelector('.calendar-overlay');
+    if (overlay && e.target === overlay) {
+        cerrarCalendario();
+    }
+});
+</script>       
+ </div>
+
+        <!-- Hero Content -->
+        <div class="hero-content">
+            <h1 class="hero-title" id="heroTitle">Y a ti, ¿qué te piden las vacaciones?</h1>
+            <p class="hero-subtitle" id="heroSubtitle">Descubre los mejores destinos para tus vacaciones de este año</p>
+            <button class="cta-button" id="heroButton">Compra ya</button>
+        </div>
+
+        <!-- Carousel Indicators -->
+        <div class="carousel-indicators">
+            <div class="indicator active" onclick="goToSlide(0)"></div>
+            <div class="indicator" onclick="goToSlide(1)"></div>
+            <div class="indicator" onclick="goToSlide(2)"></div>
+            <div class="indicator" onclick="goToSlide(3)"></div>
+            <div class="indicator" onclick="goToSlide(4)"></div>
+        </div>
+    </section>
+    
+
+    <!-- Help Buttons -->
+    <div class="help-buttons">
+        <button class="help-btn info">i</button>
+        <button class="help-btn question">?</button>
+    </div>
+
+    <script>
+        // Carousel content data
+        const carouselContent = [
+            {
+                title: "Y a ti, ¿qué te piden las vacaciones?",
+                subtitle: "Descubre los mejores destinos para tus vacaciones de este año",
+                button: "Compra ya"
+            },
+            {
+                title: "Explora Europa como nunca antes",
+                subtitle: "Vuela directo a las capitales más fascinantes del continente",
+                button: "Ver destinos"
+            },
+            {
+                title: "Caribe: Tu paraíso te espera",
+                subtitle: "Playas de ensueño, aguas cristalinas y experiencias únicas",
+                button: "Reserva ahora"
+            },
+            {
+                title: "Business Class: Viaja con elegancia",
+                subtitle: "Disfruta del máximo confort en todos tus vuelos",
+                button: "Conoce más"
+            },
+            {
+                title: "Iberia Plus: Más beneficios para ti",
+                subtitle: "Acumula Avios y vive experiencias exclusivas",
+                button: "Únete ahora"
+            }
+        ];
+
+        let currentSlide = 0;
+        let currentMobileSlide = 0;
+        let autoSlideInterval;
+        let mobileAutoSlideInterval;
+
+        // Desktop functions (unchanged)
+        function updateContent(slideIndex) {
+            const content = carouselContent[slideIndex];
+            const titleElement = document.getElementById('heroTitle');
+            const subtitleElement = document.getElementById('heroSubtitle');
+            const buttonElement = document.getElementById('heroButton');
+            
+            const carouselContainer = document.querySelector('.carousel-container');
+            carouselContainer.style.transform = `translateX(-${slideIndex * 20}%)`;
+            
+            const heroContent = document.querySelector('.hero-content');
+            heroContent.style.opacity = '0';
+            
+            setTimeout(() => {
+                titleElement.textContent = content.title;
+                subtitleElement.textContent = content.subtitle;
+                buttonElement.textContent = content.button;
+                heroContent.style.opacity = '1';
+            }, 250);
+
+            updateIndicators(slideIndex);
+        }
+
+        function updateIndicators(activeIndex) {
+            const indicators = document.querySelectorAll('.indicator');
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === activeIndex);
+            });
+        }
+
+        function goToSlide(slideIndex) {
+            currentSlide = slideIndex;
+            updateContent(slideIndex);
+            resetAutoSlide();
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % 5;
+            goToSlide(currentSlide);
+        }
+
+        function previousSlide() {
+            currentSlide = (currentSlide - 1 + 5) % 5;
+            goToSlide(currentSlide);
+        }
+
+        function resetAutoSlide() {
+            clearInterval(autoSlideInterval);
+            autoSlideInterval = setInterval(autoSlide, 5000);
+        }
+
+        function autoSlide() {
+            currentSlide = (currentSlide + 1) % 5;
+            
+            const carouselContainer = document.querySelector('.carousel-container');
+            carouselContainer.style.transform = `translateX(-${currentSlide * 20}%)`;
+            
+            const content = carouselContent[currentSlide];
+            const titleElement = document.getElementById('heroTitle');
+            const subtitleElement = document.getElementById('heroSubtitle');
+            const buttonElement = document.getElementById('heroButton');
+            const heroContent = document.querySelector('.hero-content');
+            
+            heroContent.style.opacity = '0';
+            
+            setTimeout(() => {
+                titleElement.textContent = content.title;
+                subtitleElement.textContent = content.subtitle;
+                buttonElement.textContent = content.button;
+                heroContent.style.opacity = '1';
+            }, 300);
+
+            updateIndicators(currentSlide);
+        }
+
+        // Mobile carousel functions
+        function updateMobileContent(slideIndex) {
+            const content = carouselContent[slideIndex];
+            const titleElement = document.getElementById('mobileHeroTitle');
+            const subtitleElement = document.getElementById('mobileHeroSubtitle');
+            const buttonElement = document.getElementById('mobileHeroButton');
+            
+            const mobileCarouselContainer = document.querySelector('.mobile-carousel-container');
+            mobileCarouselContainer.style.transform = `translateX(-${slideIndex * 20}%)`;
+            
+            const mobileCarouselContent = document.querySelector('.mobile-carousel-content');
+            mobileCarouselContent.style.opacity = '0';
+            
+            setTimeout(() => {
+                titleElement.textContent = content.title;
+                subtitleElement.textContent = content.subtitle;
+                buttonElement.textContent = content.button;
+                mobileCarouselContent.style.opacity = '1';
+            }, 250);
+
+            updateMobileIndicators(slideIndex);
+        }
+
+        function updateMobileIndicators(activeIndex) {
+            const indicators = document.querySelectorAll('.mobile-indicator');
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === activeIndex);
+            });
+        }
+
+        function goToMobileSlide(slideIndex) {
+            currentMobileSlide = slideIndex;
+            updateMobileContent(slideIndex);
+            resetMobileAutoSlide();
+        }
+
+        function resetMobileAutoSlide() {
+            clearInterval(mobileAutoSlideInterval);
+            mobileAutoSlideInterval = setInterval(mobileAutoSlide, 5000);
+        }
+
+        function mobileAutoSlide() {
+            currentMobileSlide = (currentMobileSlide + 1) % 5;
+            
+            const mobileCarouselContainer = document.querySelector('.mobile-carousel-container');
+            mobileCarouselContainer.style.transform = `translateX(-${currentMobileSlide * 20}%)`;
+            
+            const content = carouselContent[currentMobileSlide];
+            const titleElement = document.getElementById('mobileHeroTitle');
+            const subtitleElement = document.getElementById('mobileHeroSubtitle');
+            const buttonElement = document.getElementById('mobileHeroButton');
+            const mobileCarouselContent = document.querySelector('.mobile-carousel-content');
+            
+            mobileCarouselContent.style.opacity = '0';
+            
+            setTimeout(() => {
+                titleElement.textContent = content.title;
+                subtitleElement.textContent = content.subtitle;
+                buttonElement.textContent = content.button;
+                mobileCarouselContent.style.opacity = '1';
+            }, 300);
+
+            updateMobileIndicators(currentMobileSlide);
+        }
+
+        // Initialize carousel
+        document.addEventListener('DOMContentLoaded', function() {
+            // Desktop carousel
+            currentSlide = 0;
+            updateContent(0);
+            autoSlideInterval = setInterval(autoSlide, 5000);
+            
+            const heroSection = document.querySelector('.hero');
+            if (heroSection) {
+                heroSection.addEventListener('mouseenter', () => {
+                    clearInterval(autoSlideInterval);
+                });
+                
+                heroSection.addEventListener('mouseleave', () => {
+                    autoSlideInterval = setInterval(autoSlide, 5000);
+                });
+            }
+
+            // Mobile carousel
+            currentMobileSlide = 0;
+            updateMobileContent(0);
+            mobileAutoSlideInterval = setInterval(mobileAutoSlide, 5000);
+            
+            const mobileCarousel = document.querySelector('.mobile-carousel');
+            if (mobileCarousel) {
+                mobileCarousel.addEventListener('mouseenter', () => {
+                    clearInterval(mobileAutoSlideInterval);
+                });
+                
+                mobileCarousel.addEventListener('mouseleave', () => {
+                    mobileAutoSlideInterval = setInterval(mobileAutoSlide, 5000);
+                });
+            }
+        });
+
+        // Handle tab clicks
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+    <script src="airports.js"></script>
+</body>
+</html>
